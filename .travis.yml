@@ -5,6 +5,12 @@ node_js:
   - '0.10'
   - '0.11'
 
+before_install:
+  - curl -O https://raw.githubusercontent.com/vschoettke/ci-oracle-integration/master/oracle_db_setup.sh
+  - source ./oracle_db_setup.sh $SECRET knex_root oracle
+  - curl -O https://raw.githubusercontent.com/vschoettke/ci-oracle-integration/master/node_oracle_env.sh
+  - source ./node_oracle_env.sh
+
 before_script:
   - psql -c 'create database knex_test;' -U postgres
   - mysql -e 'create database knex_test;'
@@ -19,3 +25,7 @@ matrix:
   allow_failures:
     - node_js: '0.11'
   fast_finish: true
+
+env:
+  global:
+    secure: lc/dRSUKsH32sgidbbDG+bIjLcd1cwMAize6qFkj9xxCBTPfkLUNWf9XBav0kcXyHlMB1RUdm1Y6nbgjo0ugw4vN7/x53BfiZ4bwCzHuKiM5xOxgs/RkT/2vIO+oh6g7f4cV0/TC0MUX8AU3Api8clVk8XMAwHQm62CDXBA8Jdw=

@@ -7,7 +7,7 @@ var _          = require('lodash');
 var Promise    = require('bluebird');
 
 // excluding oracle and maria dialects from default integrations test
-var testIntegrationDialects = (process.env.KNEX_TEST_INTEGRATION_DIALECTS || "mysql mysql2 postgres sqlite3").match(/\w+/g);
+var testIntegrationDialects = (process.env.KNEX_TEST_INTEGRATION_DIALECTS || "mysql mysql2 postgres sqlite3 oracle").match(/\w+/g);
 
 var pool = {
   afterCreate: function(connection, callback) {
@@ -79,9 +79,9 @@ var testConfigs = {
   oracle: {
     dialect: 'oracle',
     connection: testConfig.oracle || {
-      adapter:  "oracle",
-      database: "knex_test",
-      user:     "oracle"
+      port: 1521,
+      user: 'knex_root',
+      password: 'oracle'
     },
     pool: pool,
     migrations: migrations

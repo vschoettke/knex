@@ -22,33 +22,27 @@ Promise.longStackTraces();
 var knex = require('../knex');
 
 var clients = {
-  maria: {
-    name: 'maria',
-    client: knex({client: 'maria'}).client,
-    alias: 'mysql'
-  },
-  mysql: {
-    name: 'mysql',
-    client: knex({client: 'mysql'}).client,
-  },
-  sqlite3: {
-    name: 'sqlite3',
-    client: knex({client: 'sqlite3'}).client
-  },
-  postgres: {
-    name: 'postgres',
-    client: knex({client: 'postgres'}).client,
-  },
-  oracle: {
-    name: 'oracle',
-    client: knex({client: 'oracle'}).client,
-  }
+  maria: {alias: 'mysql'},
+  mysql: {},
+  sqlite3: {},
+  postgres: {},
+  oracle: {}
 };
 
 describe('Unit tests', function() {
   Object.keys(clients).forEach(function (clientName) {
-    require('./unit/schema/' + (clients[clientName].alias || clients[clientName].name))(clients[clientName].client);
-    require('./unit/query/builder')(function () { return new clients[clientName].client.QueryBuilder(); }, clients[clientName].name, clients[clientName].alias);
+    var client = knex({client: clientName}).client;
+    require('./unit/schema/' + (clients[clientName].alias || clientName))(client);
+    require('./unit/query/builder')(function () { return new client.QueryBuilder(); }, clientName, clients[clientName].alias);
+    require('./unit/quote/quote')(client, clientName, clients[clientName].alias);
+  });
+});
+
+describe('Quote tests - default quote off', function() {
+  Object.keys(clients).forEach(function (clientName) {
+    var client = knex({client: clientName, quote: false}).client;
+    client.initSchema();
+    require('./unit/quote/quote_default_off')(client, clientName, clients[clientName].alias);
   });
 });
 

@@ -130,6 +130,8 @@ module.exports = function(knex) {
           'select * from test_quote'
         );
       }).then(function (res) {
+        console.log(JSON.stringify(res));
+
         expect(res).to.deep.equal([{
           ID: 1,
           ABOUT: "Lorem ipsum Dolore labore incididunt enim.",

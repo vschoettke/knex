@@ -112,7 +112,6 @@ module.exports = function(knex) {
 
         expect(res.length).to.equal(1);
         expect(Object.keys(res[0]).sort()).to.deep.equal(['about', 'created_at', 'firstName', 'id', 'last_name', 'logins', 'table', 'updated_at']);
-        expect(res[0].id).to.equal(1);
         expect(res[0].about).to.equal("Lorem ipsum Dolore labore incididunt enim.");
         expect(res[0].firstName).to.equal("Test");
         expect(res[0].last_name).to.equal("User");
@@ -139,7 +138,6 @@ module.exports = function(knex) {
         console.log("Test2", JSON.stringify(res, null, 4));
         expect(res.length).to.equal(1);
         expect(Object.keys(res[0]).sort()).to.deep.equal(['ABOUT', 'CREATED_AT', 'ID', 'LAST_NAME', 'LOGINS', 'UPDATED_AT', 'firstName', 'table']);
-        expect(res[0].ID).to.equal(1);
         expect(res[0].ABOUT).to.equal("Lorem ipsum Dolore labore incididunt enim.");
         expect(res[0].firstName).to.equal("Test");
         expect(res[0].LAST_NAME).to.equal("User");

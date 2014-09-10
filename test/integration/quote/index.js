@@ -110,16 +110,19 @@ module.exports = function(knex) {
 
         console.log("TEST1:", JSON.stringify(res, null, 4));
 
-        expect(res).to.deep.equal([{
-          id: 1,
-          about: "Lorem ipsum Dolore labore incididunt enim.",
-          created_at: d,
-          firstName: "Test",
-          last_name: "User",
-          logins: 1,
-          table: "test@example.com",
-          updated_at: d
-        }]);
+        expect(res.length).to.equal(1);
+        expect(Object.keys(res[0]).sort()).to.deep.equal(['about', 'created_at', 'firstName', 'id', 'last_name', 'logins', 'table', 'updated_at']);
+        expect(res[0].id).to.equal(1);
+        expect(res[0].about).to.equal("Lorem ipsum Dolore labore incididunt enim.");
+        expect(res[0].firstName).to.equal("Test");
+        expect(res[0].last_name).to.equal("User");
+        expect(res[0].logins).to.equal(1);
+        expect(res[0].table).to.equal("test@example.com");
+
+        // only compare the date and time to avoid problems with milliseconds
+        var compareDate = d.toISOString().substr(0,19);
+        expect(res[0].created_at.toISOString().substr(0,19)).to.equal(compareDate);
+        expect(res[0].updated_at.toISOString().substr(0,19)).to.equal(compareDate);
       });
     });
 
@@ -134,17 +137,18 @@ module.exports = function(knex) {
         );
       }).then(function (res) {
         console.log("Test2", JSON.stringify(res, null, 4));
-
-        expect(res).to.deep.equal([{
-          ID: 1,
-          ABOUT: "Lorem ipsum Dolore labore incididunt enim.",
-          CREATED_AT: d,
-          firstName: "Test",
-          LAST_NAME: "User",
-          LOGINS: 1,
-          table: "test@example.com",
-          UPDATED_AT: d
-        }]);
+        expect(res.length).to.equal(1);
+        expect(Object.keys(res[0]).sort()).to.deep.equal(['ABOUT', 'CREATED_AT', 'ID', 'LAST_NAME', 'LOGINS', 'UPDATED_AT', 'firstName', 'table']);
+        expect(res[0].ID).to.equal(1);
+        expect(res[0].ABOUT).to.equal("Lorem ipsum Dolore labore incididunt enim.");
+        expect(res[0].firstName).to.equal("Test");
+        expect(res[0].LAST_NAME).to.equal("User");
+        expect(res[0].LOGINS).to.equal(1);
+        expect(res[0].table).to.equal("test@example.com");
+        // only compare the date and time to avoid problems with milliseconds
+        var compareDate = d.toISOString().substr(0,19);
+        expect(res[0].CREATED_AT.toISOString().substr(0,19)).to.equal(compareDate);
+        expect(res[0].UPDATED_AT.toISOString().substr(0,19)).to.equal(compareDate);
       });
     });
 

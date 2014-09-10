@@ -83,7 +83,7 @@ module.exports = function(knex) {
           'sqlite3',
           'insert into test_quote (about, created_at, "firstName", last_name, logins, "table", updated_at) values (?, ?, ?, ?, ?, ?, ?)',
           ['Lorem ipsum Dolore labore incididunt enim.', d, 'Test','User', 1, 'test@example.com', d],
-          ['1']
+          [1]
         );
         tester(
           'postgresql',

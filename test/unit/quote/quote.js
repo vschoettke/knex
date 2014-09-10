@@ -211,8 +211,6 @@ module.exports = function(client, clientName, aliasName) {
     });
 
     it('test basic create table with charset and collate', function() {
-      console.log("BALLO", client.SchemaBuilder);
-
       var tableSql = new client.SchemaBuilder().createTable('users', function(table) {
         table.increments('id');
         table.string('email');

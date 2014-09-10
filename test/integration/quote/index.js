@@ -120,8 +120,8 @@ module.exports = function(knex) {
 
         // only compare the date and time to avoid problems with milliseconds
         var compareDate = d.toISOString().substr(0,19);
-        expect(res[0].created_at.toISOString().substr(0,19)).to.equal(compareDate);
-        expect(res[0].updated_at.toISOString().substr(0,19)).to.equal(compareDate);
+        expect(new Date(res[0].created_at).toISOString().substr(0,19)).to.equal(compareDate);
+        expect(new Date(res[0].updated_at).toISOString().substr(0,19)).to.equal(compareDate);
       });
     });
 
@@ -145,8 +145,8 @@ module.exports = function(knex) {
         expect(res[0].table).to.equal("test@example.com");
         // only compare the date and time to avoid problems with milliseconds
         var compareDate = d.toISOString().substr(0,19);
-        expect(res[0].CREATED_AT.toISOString().substr(0,19)).to.equal(compareDate);
-        expect(res[0].UPDATED_AT.toISOString().substr(0,19)).to.equal(compareDate);
+        expect(new Date(res[0].CREATED_AT).toISOString().substr(0,19)).to.equal(compareDate);
+        expect(new Date(res[0].UPDATED_AT).toISOString().substr(0,19)).to.equal(compareDate);
       });
     });
 

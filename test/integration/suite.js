@@ -12,6 +12,7 @@ module.exports = function(knex) {
     require('./schema')(knex);
     require('./migrate')(knex);
     require('./seed')(knex);
+    require('./quote')(knex);
     require('./builder/inserts')(knex);
     require('./builder/selects')(knex);
     require('./builder/unions')(knex);
